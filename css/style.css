@@ -23,23 +23,27 @@ html,body{
 }
 
 .game_default{
-	background-color: #3d495e;
+	background-color: #323234;
 }
 .game_default:hover{
-	background-color: #29313f;  
+	background-color: #252529;  
 }
 
 .game_wall{
-	background-color: #b9c16c;	
+	background-color: #151519;	
 }
 .game_wall:hover{
-	background-color: #909943;	
+	background-color: #101014;	
 }
 
 .game_nextLevel{
-	background-color: #465CAA;
+	background-color: #8D8D91;
 }
 
 .game_mob{
-	background-color: #AB3CB5;
+	background-color: #8E8E91;
+}
+
+.fogged{
+	background-color: #000000;
 }
