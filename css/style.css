@@ -30,20 +30,17 @@ html,body{
 }
 
 .game_wall{
-	background-color: #151519;	
-}
-.game_wall:hover{
-	background-color: #101014;	
+	background-color: #C126D8BD;	
 }
 
 .game_nextLevel{
-	background-color: #8D8D91;
+	background-color: #347ECAA1;
 }
 
 .game_mob{
-	background-color: #8E8E91;
+	background-color: #98CD31FF;
 }
 
 .fogged{
-	background-color: #000000;
+	background-color: #151515;
 }
