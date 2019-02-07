@@ -1,0 +1,30 @@
+.game_default, .game_wall,
+.game_nextLevel, .game_mob{
+	width: calc(100% / 15);
+	height: calc(100% / 10);
+	margin: 0;
+	padding: 0;
+}
+
+.game_default{
+	background-color: #323234;
+}
+.game_default:hover{
+	background-color: #252529;  
+}
+
+.game_wall{
+	background-color: #C126D8BD;	
+}
+
+.game_nextLevel{
+	background-color: #347ECAA1;
+}
+
+.game_mob{
+	background-color: #98CD31FF;
+}
+
+.fogged{
+	background-color: #151515;
+}

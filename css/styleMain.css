@@ -1,0 +1,32 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#game_MainWrapper{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+#game_GRID{
+	width: 100%;
+	height: 90%;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+#game_UI{
+	width: 100%;
+	height: 10%;
+	margin: 0;
+	padding: 0;
+	background-color: #CB6033FF;
+}

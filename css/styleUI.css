@@ -1,0 +1,6 @@
+img{
+	width: 10%;
+	height: 100%;
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
