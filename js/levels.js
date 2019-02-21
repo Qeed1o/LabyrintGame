@@ -1,6 +1,7 @@
 function Level(mE){
 	var
-		size_W = 15, size_H = 10, main_EL = mE;
+		size_W = 15, size_H = 10, main_EL = mE,
+		block_Way = false;
 
 	this.InitLevel = function(){ // Создаём уровень
 		let
@@ -23,6 +24,7 @@ function Level(mE){
 				if(mob && max_mobs > 0){ // Монстр
 					className = "game_mob";
 					max_mobs -= 1;
+					div.setAttribute("HP",5);
 				}
 				else if(wall){ // "Фиолетовый" блок
 					className = "game_wall";
@@ -72,19 +74,31 @@ function Level(mE){
 	}
 
  	this.click_Block = function(el, type){ // Клик на обычный блок
-		if(this.near_Fogged(el.getAttribute("Col"),el.getAttribute("Row"))){
-			let row = parseInt(el.getAttribute("Row")), col = parseInt(el.getAttribute("Col")),
-				item = (row * 15) + col;
-			main_EL.childNodes[item].classList.remove("fogged");
-		}
+		if(this.near_Fogged(el.getAttribute("Col"),el.getAttribute("Row")) && block_Way != true){
+			el.classList.remove("fogged");
 
-		if (type == "nl"){ // След. уровень
-
-		}else if (type == "m"){ // Монстр
-
-		}else if (type == "w"){ // Стена
-
-		}
+			if (type == "nl"){ }// След. уровень	
+			else if (type == "w"){ }// Стена
+			else if (type == "m"){ // Монстр
+				let HP = el.getAttribute("HP");
+				block_Way = true; // Блокирует путь
+				el.setAttribute("HP", HP-1);
+				HP -= 1;
+				if(HP <= 0){
+					console.log("Моб умер")
+					block_Way = false;
+				}
+			}
+		}else if(block_Way == true && type == "m"){
+			let HP = el.getAttribute("HP");
+			el.setAttribute("HP", HP-1);
+			console.log("Ударил моба")
+			HP -= 1;
+			if(HP <= 0){
+				console.log("Моб умер")
+				block_Way = false;
+			}
+		}		
 	}
 
 	this.near_Fogged = function(col, row){ // Проверяем соседние клетки на "затуманенность"
