@@ -1,9 +1,8 @@
 function Level(mE){
 	var
-		size_W = 15, size_H = 10, main_EL = mE,
-		block_Way = false;
+		size_W = 15, size_H = 10, main_EL = mE;
 
-	this.InitLevel = function(){ // Создаём уровень
+	this.InitLevel = () => { // Создаём уровень
 		let
 			max_mobs = 10, nl_f = false;
 		main_EL = document.getElementById("game_GRID");
@@ -42,10 +41,10 @@ function Level(mE){
 					max_mobs = 10; nl_f = false;
 				}
 
-				className == "game_nextLevel" 	?	div.onclick = () => this.click_Block(div, "nl")	: {}
-				className == "game_mob" 		?	div.onclick = () => this.click_Block(div, "m")	: {} 
-				className == "game_wall" 		?	div.onclick = () => this.click_Block(div, "w")	: {} 
-				className == "game_default" 	?	div.onclick = () => this.click_Block(div, "d")	: {} 
+				className == "game_nextLevel" 	?	div.onclick = () => this.click_NextLevel(div)	: {}
+				className == "game_mob" 		?	div.onclick = () => this.click_Mob(div)			: {} 
+				className == "game_wall" 		?	div.onclick = () => this.click_Wall(div)		: {} 
+				className == "game_default" 	?	div.onclick = () => this.click_Block(div)		: {} 
 				div.classList.add(className);
 				(i == 0 && j == 0) ||
 				(className == "game_nextLevel") ? {} : div.classList.add("fogged");
@@ -67,41 +66,47 @@ function Level(mE){
 		}
 	}
 
-	this.unfog_All = function(){ // Открыть весь уровень
+	this.unfog_All = () => { // Открыть весь уровень
 		for(i = 0; i < main_EL.childNodes.length; i++){
 			main_EL.childNodes[i].classList.contains("fogged") ? main_EL.childNodes[i].classList.remove("fogged") : {};
 		}
 	}
 
- 	this.click_Block = function(el, type){ // Клик на обычный блок
-		if(this.near_Fogged(el.getAttribute("Col"),el.getAttribute("Row")) && block_Way != true){
+	this.click_Wall = (el) => {
+		if (block_Way != true){
 			el.classList.remove("fogged");
-
-			if (type == "nl"){ }// След. уровень	
-			else if (type == "w"){ }// Стена
-			else if (type == "m"){ // Монстр
-				let HP = el.getAttribute("HP");
-				block_Way = true; // Блокирует путь
-				el.setAttribute("HP", HP-1);
-				HP -= 1;
-				if(HP <= 0){
-					console.log("Моб умер")
-					block_Way = false;
-				}
-			}
-		}else if(block_Way == true && type == "m"){
-			let HP = el.getAttribute("HP");
-			el.setAttribute("HP", HP-1);
-			console.log("Ударил моба")
-			HP -= 1;
-			if(HP <= 0){
-				console.log("Моб умер")
-				block_Way = false;
-			}
-		}		
+		}
 	}
 
-	this.near_Fogged = function(col, row){ // Проверяем соседние клетки на "затуманенность"
+	this.click_NextLevel = (el) => {
+		if (block_Way != true){
+			el.classList.remove("fogged");
+		}
+	}
+
+	this.click_Mob = (el) => {
+		el.classList.remove("fogged");
+		let
+			HP = el.getAttribute("HP");
+		block_Way = true; // Блокирует путь
+		el.setAttribute("HP", HP-1);
+		HP -= 1;
+		if(HP <= 0){
+			console.log("Моб умер")
+			block_Way = false;
+			el.classList.remove("game_mob");
+			el.classList.add("game_default");
+			el.onclick = this.click_Block(el);
+		}
+	}
+
+ 	this.click_Block = (el) => { // Клик на обычный блок
+		if(this.near_Fogged(el.getAttribute("Col"),el.getAttribute("Row")) && block_Way != true){
+			el.classList.remove("fogged");
+		}	
+	}
+
+	this.near_Fogged = (col, row) => { // Проверяем соседние клетки на "затуманенность"
 		for(let i = 0; i < main_EL.childNodes.length; i++){
 			if(main_EL.childNodes[i].getAttribute("Col") == col
 							&&
@@ -109,6 +114,7 @@ function Level(mE){
 					let tmp = [	i - 16,	 i - 15, i - 14,
 								i-1,	 i,		 i+1,
 								i+14,	 i+15, i+16];
+
 					for(let k = 0; k < 8; k++){
 						let child = main_EL.childNodes[tmp[k]];	
 						if(child){
