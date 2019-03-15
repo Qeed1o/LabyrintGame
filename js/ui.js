@@ -5,29 +5,29 @@ function UI(parentEL){
 
 	this.init = () => {
 		this.addImages();
-		this.addStats();
-		this.updateStats();
+		this.updateStatsText();
 	}
 
 	this.addImages = () => {
-		this.face = document.createElement('img');
-		this.face.src = "https://pngimage.net/wp-content/uploads/2018/05/anime-head-png-2.png";
-		//this.face.onclick = () => { hero.HP -= 1; this.updateStats(); }
+		//this.face = document.createElement('img');
+		//this.face.src = "https://pngimage.net/wp-content/uploads/2018/05/anime-head-png-2.png";
+		//this.face.onclick = () => { hero.HP -= 1; this.updateStatsText(); }
 
 		this.heart = document.createElement("text");
-		this.heart.innerHTML = hero.HP;
+		this.heart.innerHTML = "HP: " + hero.getStat("HP");
 
-		main_EL.appendChild(this.face);
+		this.shield = document.createElement("text");
+		this.shield.innerHTML = "Armor: " + hero.getStat("Armor");
+
+		//main_EL.appendChild(this.face);
 		main_EL.appendChild(this.heart);
-		/*this.main_EL.appendChild(this.shield);
-		this.main_EL.appendChild(this.sword);*/
+		main_EL.appendChild(document.createElement("br"));
+		main_EL.appendChild(this.shield);
+		/*this.main_EL.appendChild(this.sword);*/
 	}
 
-	this.addStats = () => {
-
-	}
-
-	this.updateStats = () => {
-		this.heart.innerHTML = hero.HP;
+	this.updateStatsText = () => {
+		this.heart.innerHTML = "HP: " + hero.getStat("HP");
+		this.shield.innerHTML = "Armor: " + hero.getStat("Armor");
 	}
 }
