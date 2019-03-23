@@ -4,7 +4,8 @@ function Level(mE){
 		killed_mobs = 0;
 
 	this.level = 1;
-	this.InitLevel = () => { // Создаём уровень
+	this.init = () => { // Создаём уровень
+		mE.style.visibility = "visible";
 		let
 			max_mobs = 10, nl_f = false;
 		killed_mobs = max_mobs;
@@ -99,7 +100,7 @@ function Level(mE){
 	this.click_NextLevel = (el) => {
 		if (block_Way != true && this.near_Fogged(el.getAttribute("Col"),el.getAttribute("Row")) && hero.getStat("Key")){
 			this.level++;
-			this.InitLevel();
+			this.init();
 			hero.setStat("Key", "false");
 		}
 	}
@@ -172,5 +173,9 @@ function Level(mE){
 					}
 			}
 		}
+	}
+
+	this.die = () => {
+		mE.style.visibility = "hidden";
 	}
 }

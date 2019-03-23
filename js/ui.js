@@ -4,6 +4,7 @@ function UI(parentEL){
 		face, heart, sword, shield;
 
 	this.init = () => {
+		main_EL.style.visibility = "visible";
 		this.addImages();
 		this.updateStatsText();
 	}
@@ -29,5 +30,10 @@ function UI(parentEL){
 	this.updateStatsText = () => {
 		this.heart.innerHTML = "HP: " + hero.getStat("HP");
 		this.shield.innerHTML = "Armor: " + hero.getStat("Armor");
+	}
+
+	this.die = () => {
+		main_EL.innerHTML = "";
+		main_EL.style.visibility = "hidden";
 	}
 }
