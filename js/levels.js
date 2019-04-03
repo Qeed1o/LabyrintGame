@@ -19,7 +19,7 @@ function Level(mE){
 					wall 	= (rnd >= 10) && (rnd < 15), 	// Фиолетовый блок
 					nl 		= (rnd >= 15) && (rnd < 17), 	// Переход на след. уровень
 
-					div = document.createElement('div'), className;
+				div = document.createElement('div'), className;
 				div.setAttribute("Col",j);
 				div.setAttribute("Row",i);
 				div.setAttribute("opened", false);
@@ -105,6 +105,12 @@ function Level(mE){
 	}
 
 	this.click_Mob = (el) => {
+		if(!el.hasAttribute("hp_bar")){
+			el.text = document.createElement("text")
+			el.text.innerHTML = el.getAttribute("HP");
+			el.appendChild(el.text);
+			el.setAttribute("hp_bar", true);
+		}
 		if (el.hasAttribute("opened")){
 			el.classList.remove("fogged");
 			el.removeAttribute("opened");
@@ -127,10 +133,12 @@ function Level(mE){
 
 			ui.updateStatsText();
 			HP -= 1;
+			el.text.innerHTML = el.getAttribute("HP");
 			if(HP <= 0){
 				console.log("Моб умер")
 				block_Way = false;
 				el.classList.remove("game_mob");
+				el.innerHTML = "";
 				el.classList.add("game_default");
 				el.onclick = this.click_Block(el);
 

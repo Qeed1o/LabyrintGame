@@ -23,6 +23,9 @@
 
 .game_mob{
 	background-color: #98CD31FF;
+	text-align: center;
+	font-size: 2.5em;
+	user-select: none;
 }
 
 .fogged{
